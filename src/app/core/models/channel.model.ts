@@ -12,7 +12,8 @@ export interface FacebookPage {
   id: string; // Page ID
   name: string;
   access_token?: string; // Opcional no front
-  instagram_business_account?: InstagramAccount; // Se null, não serve pro nosso caso
+  picture?: string; // URL da foto da página (opcional)
+  instagram_business_account?: InstagramAccount | null; // Se null, não serve pro nosso caso
   is_connected: boolean; // Flag visual: Já está salvo no nosso banco?
 }
 

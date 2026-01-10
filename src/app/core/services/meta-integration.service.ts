@@ -9,7 +9,7 @@ import { FacebookPage, AuthResponse } from '../models/channel.model';
  */
 @Injectable({ providedIn: 'root' })
 export class MetaIntegrationService {
-  private apiUrl = `${environment.apiUrl}/integrations/meta`;
+  private apiUrl = `${environment.apiUrl}/channels`;
 
   constructor(private http: HttpClient) {}
 
@@ -18,8 +18,8 @@ export class MetaIntegrationService {
    * Utiliza OAuth Server-Side flow
    */
   redirectToFacebookLogin(): void {
-    // Busca a URL de login do backend (recomendado) ou pode ser construída aqui
-    this.http.get<{ loginUrl: string }>(`${this.apiUrl}/login-url`)
+    // Busca a URL de login do backend para iniciar o fluxo OAuth
+    this.http.get<{ loginUrl: string }>(`${environment.apiUrl}/auth/meta/login-url`)
       .subscribe({
         next: (response) => {
           window.location.href = response.loginUrl;
@@ -36,7 +36,7 @@ export class MetaIntegrationService {
    * @returns Observable com a URL de OAuth
    */
   getLoginUrl(): Observable<{ loginUrl: string }> {
-    return this.http.get<{ loginUrl: string }>(`${this.apiUrl}/login-url`);
+    return this.http.get<{ loginUrl: string }>(`${environment.apiUrl}/auth/meta/login-url`);
   }
 
   /**
@@ -44,7 +44,7 @@ export class MetaIntegrationService {
    * @returns Observable com lista de FacebookPage
    */
   getAvailablePages(): Observable<FacebookPage[]> {
-    return this.http.get<FacebookPage[]>(`${this.apiUrl}/available-pages`);
+    return this.http.get<FacebookPage[]>(`${this.apiUrl}/available`);
   }
 
   /**
@@ -67,7 +67,7 @@ export class MetaIntegrationService {
    * @returns Observable com resposta de sucesso
    */
   disconnectPage(pageId: string): Observable<AuthResponse> {
-    return this.http.delete<AuthResponse>(`${this.apiUrl}/${pageId}`);
+    return this.http.delete<AuthResponse>(`${this.apiUrl}/disconnect/${pageId}`);
   }
 
   /**
@@ -77,7 +77,7 @@ export class MetaIntegrationService {
    * @returns Observable com resposta de autenticação
    */
   processOAuthCallback(code: string, state: string): Observable<AuthResponse> {
-    return this.http.post<AuthResponse>(`${this.apiUrl}/callback`, {
+    return this.http.post<AuthResponse>(`${environment.apiUrl}/auth/meta/callback`, {
       code,
       state
     });
