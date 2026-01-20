@@ -1,8 +1,27 @@
-/* Animações customizadas */
-@keyframes fadeIn {
+/* Channel Setup Component Styles - Msg4 Enterprise Design */
+
+:host {
+  display: block;
+  min-height: 100vh;
+}
+
+/* Color Palette - SaaS Blue Enterprise */
+$primary-dark-blue: #0f172a;
+$primary-blue: #1e3a8a;
+$accent-blue: #3b82f6;
+$light-bg: #f0f4f8;
+$white: #ffffff;
+$text-dark: #1e293b;
+$text-muted: #64748b;
+$border-color: #e2e8f0;
+$success-green: #10b981;
+$error-red: #ef4444;
+
+/* Animations */
+@keyframes fadeInDown {
   from {
     opacity: 0;
-    transform: translateY(10px);
+    transform: translateY(-20px);
   }
   to {
     opacity: 1;
@@ -10,25 +29,569 @@
   }
 }
 
-:host {
-  display: block;
-}
-
-.animate-in {
-  &.fade-in {
-    animation: fadeIn 0.5s ease-in-out;
+@keyframes fadeInUp {
+  from {
+    opacity: 0;
+    transform: translateY(20px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
   }
 }
 
-/* Responsividade */
-@media (max-width: 640px) {
-  :host ::ng-deep {
-    .text-4xl {
-      @apply text-2xl;
+@keyframes slideInRight {
+  from {
+    opacity: 0;
+    transform: translateX(30px);
+  }
+  to {
+    opacity: 1;
+    transform: translateX(0);
+  }
+}
+
+@keyframes blur-animation {
+  0% {
+    opacity: 0.1;
+  }
+  50% {
+    opacity: 0.3;
+  }
+  100% {
+    opacity: 0.1;
+  }
+}
+
+@keyframes spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+/* Main Container */.setup-container {
+  min-height: 100vh;
+  background: linear-gradient(135deg, $light-bg 0%, #e8eef7 100%);
+  padding: 3em 1rem;
+  position: relative;
+  overflow: hidden;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+}
+
+/* Decorative Background Blur Elements */
+.bg-blur {
+  position: absolute;
+  border-radius: 50%;
+  opacity: 0.1;
+  filter: blur(80px);
+  animation: blur-animation 8s ease-in-out infinite;
+
+  &.blur-1 {
+    width: 600px;
+    height: 600px;
+    background: $accent-blue;
+    top: -200px;
+    right: -200px;
+  }
+
+  &.blur-2 {
+    width: 500px;
+    height: 500px;
+    background: $primary-blue;
+    bottom: -150px;
+    left: -150px;
+    animation-delay: 2s;
+  }
+}
+
+/* Content Wrapper */
+.setup-content {
+  width: 100%;
+  max-width: 1000px;
+  margin: 0 auto;
+  position: relative;
+  z-index: 10;
+  animation: fadeInUp 0.6s ease-out;
+}
+
+/* Alert Containers */
+.alert-container {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem;
+  margin-bottom: 2rem;
+  border-radius: 12px;
+  animation: fadeInDown 0.5s ease-out;
+
+  &.success-alert {
+    background: rgba(16, 185, 129, 0.1);
+    border: 1px solid $success-green;
+  }
+
+  &.error-alert {
+    background: rgba(239, 68, 68, 0.1);
+    border: 1px solid $error-red;
+  }
+
+  .alert-icon {
+    font-size: 1.5rem;
+    flex-shrink: 0;
+  }
+
+  .alert-content {
+    flex: 1;
+
+    h3 {
+      margin: 0 0 0.25rem 0;
+      font-weight: 600;
     }
-    
-    .text-3xl {
-      @apply text-xl;
+
+    p {
+      margin: 0;
+      font-size: 0.95rem;
+    }
+
+    &.success-alert {
+      color: $success-green;
     }
   }
 }
+
+/* Main Setup Card */
+.setup-card {
+  background: $white;
+  border-radius: 16px;
+  box-shadow: 0 20px 60px rgba(0, 0, 0, 0.08);
+  border: 1px solid $border-color;
+  overflow: hidden;
+  animation: fadeInUp 0.7s ease-out;
+  transition: all 0.3s ease;
+
+  &:hover {
+    box-shadow: 0 30px 80px rgba(30, 58, 138, 0.12);
+    border-color: $accent-blue;
+  }
+}
+
+/* Brand Header */
+.card-brand-header {
+  display: flex;
+  align-items: center;
+  gap: 1rem;
+  padding: 1.5rem;
+  background: linear-gradient(135deg, #f8fafc 0%, #f0f4f8 100%);
+  border-bottom: 1px solid $border-color;
+
+  .brand-logo {
+    width: 48px;
+    height: 48px;
+    border-radius: 12px;
+    background: linear-gradient(135deg, $accent-blue 0%, $primary-blue 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    flex-shrink: 0;
+
+    .logo-icon {
+      font-size: 1.5rem;
+    }
+  }
+
+  .brand-text {
+    .brand-name {
+      font-size: 1.25rem;
+      font-weight: 700;
+      color: $primary-dark-blue;
+      margin: 0;
+    }
+
+    .brand-tagline {
+      font-size: 0.75rem;
+      color: $text-muted;
+      margin: 0.25rem 0 0 0;
+      text-transform: uppercase;
+      letter-spacing: 0.5px;
+    }
+  }
+}
+
+/* Card Divider */
+.card-divider {
+  height: 1px;
+  background: linear-gradient(90deg, transparent, $border-color, transparent);
+}
+
+/* Title Section */
+.title-section {
+  padding: 2.5rem;
+  text-align: center;
+  animation: fadeInDown 0.8s ease-out 0.1s both;
+
+  .main-title {
+    font-size: 2rem;
+    font-weight: 700;
+    color: $primary-dark-blue;
+    margin: 0 0 1rem 0;
+    letter-spacing: -0.5px;
+  }
+
+  .main-subtitle {
+    font-size: 1.0625rem;
+    color: $text-muted;
+    margin: 0;
+    line-height: 1.6;
+  }
+}
+
+/* Requirements Section */
+.requirements-section {
+  padding: 2rem 2.5rem;
+  background: linear-gradient(135deg, rgba(59, 130, 246, 0.02) 0%, rgba(30, 58, 138, 0.02) 100%);
+
+  .section-title {
+    font-size: 1rem;
+    font-weight: 600;
+    color: $primary-dark-blue;
+    margin: 0 0 1.5rem 0;
+    text-transform: uppercase;
+    letter-spacing: 0.5px;
+  }
+
+  .requirements-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: flex;
+    flex-direction: column;
+    gap: 1rem;
+
+    .requirement-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 1rem;
+      animation: slideInRight 0.5s ease-out;
+
+      .requirement-icon {
+        font-size: 1.5rem;
+        flex-shrink: 0;
+      }
+
+      div {
+        flex: 1;
+
+        strong {
+          display: block;
+          color: $text-dark;
+          font-weight: 600;
+          margin-bottom: 0.25rem;
+        }
+
+        p {
+          margin: 0;
+          font-size: 0.875rem;
+          color: $text-muted;
+        }
+      }
+    }
+  }
+}
+
+/* CTA Button */
+.cta-button {
+  width: calc(100% - 4rem);
+  padding: 1.25rem;
+  margin: 2.5rem 2rem;
+  border: none;
+  border-radius: 12px;
+  font-size: 1.0625rem;
+  font-weight: 600;
+  cursor: pointer;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  gap: 0.75rem;
+  transition: all 0.3s cubic-bezier(0.4, 0, 0.2, 1);
+  position: relative;
+  overflow: hidden;
+
+  &.primary {
+    background: linear-gradient(135deg, $accent-blue 0%, $primary-blue 100%);
+    color: $white;
+    box-shadow: 0 10px 30px rgba(30, 58, 138, 0.3);
+
+    &:hover:not(:disabled) {
+      transform: translateY(-2px);
+      box-shadow: 0 15px 40px rgba(30, 58, 138, 0.4);
+
+      .button-icon {
+        transform: scale(1.1);
+      }
+    }
+
+    &:active:not(:disabled) {
+      transform: translateY(0);
+    }
+
+    &:disabled {
+      background: linear-gradient(135deg, #cbd5e1 0%, #94a3b8 100%);
+      cursor: not-allowed;
+      opacity: 0.7;
+    }
+
+    &.loading {
+      pointer-events: none;
+    }
+  }
+
+  .button-icon {
+    width: 24px;
+    height: 24px;
+    transition: transform 0.3s ease;
+
+    &.facebook {
+      filter: drop-shadow(0 2px 4px rgba(0, 0, 0, 0.1));
+    }
+  }
+
+  .button-text {
+    font-size: 1rem;
+
+    &.loading-text {
+      display: flex;
+      align-items: center;
+      gap: 0.75rem;
+
+      .spinner {
+        width: 18px;
+        height: 18px;
+        border: 2px solid rgba(255, 255, 255, 0.3);
+        border-top-color: $white;
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
+      }
+    }
+  }
+}
+
+/* Security Info */
+.security-info {
+  display: flex;
+  align-items: flex-start;
+  gap: 1rem;
+  padding: 1.5rem 2.5rem;
+  background: linear-gradient(135deg, rgba(16, 185, 129, 0.05) 0%, rgba(10, 140, 108, 0.05) 100%);
+  border-top: 1px solid $border-color;
+  border-bottom: 1px solid $border-color;
+  margin: 1.5rem 0;
+
+  .security-icon {
+    width: 24px;
+    height: 24px;
+    color: $success-green;
+    flex-shrink: 0;
+    margin-top: 0.125rem;
+  }
+
+  div {
+    flex: 1;
+
+    strong {
+      display: block;
+      color: $text-dark;
+      font-weight: 600;
+      margin-bottom: 0.25rem;
+    }
+
+    p {
+      margin: 0;
+      font-size: 0.875rem;
+      color: $text-muted;
+      line-height: 1.5;
+    }
+  }
+}
+
+/* Benefits Section */
+.benefits-section {
+  display: grid;
+  grid-template-columns: repeat(auto-fit, minmax(250px, 1fr));
+  gap: 1.5rem;
+  margin-top: 3rem;
+  animation: fadeInUp 0.9s ease-out 0.3s both;
+
+  .benefit-card {
+    background: $white;
+    border: 1px solid $border-color;
+    border-radius: 12px;
+    padding: 2rem;
+    text-align: center;
+    transition: all 0.3s ease;
+    cursor: default;
+
+    &:hover {
+      border-color: $accent-blue;
+      box-shadow: 0 12px 24px rgba(59, 130, 246, 0.15);
+      transform: translateY(-4px);
+    }
+
+    .benefit-icon {
+      font-size: 2.5rem;
+      margin-bottom: 1rem;
+    }
+
+    .benefit-title {
+      font-size: 1.0625rem;
+      font-weight: 600;
+      color: $primary-dark-blue;
+      margin: 0 0 0.5rem 0;
+    }
+
+    .benefit-desc {
+      font-size: 0.875rem;
+      color: $text-muted;
+      margin: 0;
+      line-height: 1.5;
+    }
+  }
+}
+
+/* Footer Info */
+.setup-footer {
+  text-align: center;
+  padding: 2rem 0;
+  animation: fadeInUp 1s ease-out 0.4s both;
+
+  .footer-text {
+    font-size: 0.9375rem;
+    color: $text-muted;
+    margin: 0;
+    line-height: 1.6;
+
+    strong {
+      color: $text-dark;
+    }
+  }
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+  .setup-container {
+    padding: 2rem 1rem;
+  }
+
+  .title-section {
+    padding: 2rem;
+
+    .main-title {
+      font-size: 1.5rem;
+    }
+
+    .main-subtitle {
+      font-size: 1rem;
+    }
+  }
+
+  .card-brand-header {
+    padding: 1rem;
+  }
+
+  .security-info {
+    padding: 1rem;
+    font-size: 0.875rem;
+  }
+
+  .requirements-section {
+    padding: 1.5rem 2rem;
+  }
+
+  .cta-button {
+    font-size: 1rem;
+
+    .button-text {
+      font-size: 0.95rem;
+    }
+  }
+
+  .benefits-section {
+    grid-template-columns: 1fr;
+    gap: 1rem;
+    margin-top: 2rem;
+  }
+}
+
+@media (max-width: 480px) {
+  .setup-container {
+    padding: 1.5rem 1rem;
+  }
+
+  .setup-card {
+    border-radius: 12px;
+  }
+
+  .title-section {
+    padding: 1.5rem 1rem;
+
+    .main-title {
+      font-size: 1.25rem;
+    }
+
+    .main-subtitle {
+      font-size: 0.9375rem;
+    }
+  }
+
+  .requirements-section {
+    padding: 1.5rem 1rem;
+
+    .section-title {
+      font-size: 0.9375rem;
+    }
+  }
+
+  .cta-button {
+    font-size: 1rem;
+
+    .button-text {
+      font-size: 0.95rem;
+    }
+  }
+
+  .benefit-card {
+    padding: 1.5rem 1rem;
+
+    .benefit-icon {
+      font-size: 2rem;
+    }
+
+    .benefit-title {
+      font-size: 0.95rem;
+    }
+
+    .benefit-desc {
+      font-size: 0.8125rem;
+    }
+  }
+
+  .bg-blur {
+    &.blur-1 {
+      width: 400px;
+      height: 400px;
+      top: -150px;
+      right: -150px;
+    }
+
+    &.blur-2 {
+      width: 350px;
+      height: 350px;
+      bottom: -100px;
+      left: -100px;
+    }
+  }
+}
+
