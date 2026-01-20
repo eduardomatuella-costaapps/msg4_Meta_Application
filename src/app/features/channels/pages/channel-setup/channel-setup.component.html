@@ -1,0 +1,138 @@
+<div class="min-h-screen bg-gradient-to-br from-blue-50 to-indigo-100 p-6">
+  <!-- Container Principal -->
+  <div class="max-w-2xl mx-auto">
+    
+    <!-- Success Message -->
+    <div *ngIf="successMessage" class="mb-6 bg-green-50 border border-green-300 rounded-lg p-4 flex items-center gap-3 animate-in fade-in">
+      <span class="text-3xl">✅</span>
+      <div>
+        <p class="text-green-800 font-semibold text-lg">{{ successMessage }}</p>
+        <p class="text-green-700 text-sm">Redirecionando para suas páginas conectadas...</p>
+      </div>
+    </div>
+
+    <!-- Error Message -->
+    <div *ngIf="errorMessage" class="mb-6 bg-red-50 border border-red-300 rounded-lg p-4 flex items-center gap-3 animate-in fade-in">
+      <span class="text-3xl">❌</span>
+      <div>
+        <p class="text-red-800 font-semibold">{{ errorMessage }}</p>
+      </div>
+    </div>
+
+    <!-- Main Content Card -->
+    <div class="bg-white rounded-2xl shadow-2xl p-10">
+      
+      <!-- Header -->
+      <div class="mb-8">
+        <div class="flex items-center gap-3 mb-6">
+          <div class="w-16 h-16 bg-gradient-to-br from-blue-500 to-indigo-600 rounded-lg flex items-center justify-center text-white">
+            <svg class="w-8 h-8" fill="currentColor" viewBox="0 0 24 24">
+              <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 3c1.66 0 3 1.34 3 3s-1.34 3-3 3-3-1.34-3-3 1.34-3 3-3zm0 14.2c-2.5 0-4.71-1.28-6-3.22.03-1.99 4-3.08 6-3.08 1.99 0 5.97 1.09 6 3.08-1.29 1.94-3.5 3.22-6 3.22z"/>
+            </svg>
+          </div>
+          <div>
+            <h1 class="text-3xl font-bold text-gray-900">Msg4 Meta Integration</h1>
+            <p class="text-gray-600">Conecte sua conta Meta para começar</p>
+          </div>
+        </div>
+      </div>
+
+      <!-- Title Section -->
+      <div class="text-center mb-10">
+        <h2 class="text-4xl font-bold text-gray-900 mb-4">
+          Conecte o Msg4 a Sua Página!
+        </h2>
+        <p class="text-gray-600 text-lg">
+          Comece a receber mensagens diretas do Instagram na sua conta Meta
+        </p>
+      </div>
+
+      <!-- Icon Section -->
+      <div class="flex justify-center mb-10">
+        <div class="bg-gradient-to-br from-pink-100 to-blue-100 rounded-full p-8">
+          <svg class="w-24 h-24 text-blue-600" fill="currentColor" viewBox="0 0 24 24">
+            <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 15l-5-5 1.41-1.41L10 14.17l7.59-7.59L19 8l-9 9z"/>
+          </svg>
+        </div>
+      </div>
+
+      <!-- Description -->
+      <div class="bg-blue-50 border border-blue-200 rounded-lg p-6 mb-8">
+        <h3 class="font-semibold text-gray-900 mb-4 text-lg">O que você precisa:</h3>
+        <ul class="space-y-3">
+          <li class="flex items-start gap-3">
+            <span class="text-blue-600 text-2xl mt-1">✓</span>
+            <div>
+              <p class="font-semibold text-gray-900">Uma Página do Facebook</p>
+              <p class="text-gray-600 text-sm">Você precisa ser administrador da página</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-blue-600 text-2xl mt-1">✓</span>
+            <div>
+              <p class="font-semibold text-gray-900">Uma Conta Instagram Business</p>
+              <p class="text-gray-600 text-sm">Vinculada à sua página do Facebook</p>
+            </div>
+          </li>
+          <li class="flex items-start gap-3">
+            <span class="text-blue-600 text-2xl mt-1">✓</span>
+            <div>
+              <p class="font-semibold text-gray-900">Permissões Necessárias</p>
+              <p class="text-gray-600 text-sm">Acesso a gerenciar mensagens e comentários</p>
+            </div>
+          </li>
+        </ul>
+      </div>
+
+      <!-- Main CTA Button -->
+      <button 
+        (click)="connectWithFacebook()"
+        [disabled]="isConnecting"
+        class="w-full inline-flex items-center justify-center gap-3 px-8 py-5 bg-gradient-to-r from-blue-600 to-indigo-600 hover:from-blue-700 hover:to-indigo-700 disabled:from-gray-400 disabled:to-gray-400 text-white font-bold text-lg rounded-lg transition-all shadow-lg hover:shadow-xl disabled:shadow-none mb-6"
+      >
+        <!-- Loading spinner -->
+        <span *ngIf="isConnecting" class="inline-block animate-spin rounded-full h-6 w-6 border-2 border-white border-b-transparent"></span>
+        
+        <!-- Facebook Icon -->
+        <svg *ngIf="!isConnecting" class="w-6 h-6" fill="currentColor" viewBox="0 0 24 24">
+          <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
+        </svg>
+
+        <span>{{ isConnecting ? 'Conectando...' : 'Conectar com Facebook' }}</span>
+      </button>
+
+      <!-- Info Footer -->
+      <div class="bg-gradient-to-r from-indigo-50 to-blue-50 border border-indigo-200 rounded-lg p-6 text-center">
+        <p class="text-indigo-900 text-sm mb-2">
+          <span class="font-semibold">🔒 Segurança:</span> Suas credenciais são gerenciadas através do OAuth 2.0 do Facebook
+        </p>
+        <p class="text-indigo-700 text-xs">
+          Você será redirecionado para a página oficial do Facebook para autorizar a conexão
+        </p>
+      </div>
+    </div>
+
+    <!-- Secondary Info -->
+    <div class="mt-10 grid grid-cols-1 md:grid-cols-3 gap-6">
+      
+      <div class="bg-white rounded-lg shadow p-6 text-center">
+        <div class="text-4xl mb-3">💬</div>
+        <h3 class="font-bold text-gray-900 mb-2">Receba Mensagens</h3>
+        <p class="text-gray-600 text-sm">Acesse DMs do Instagram em um único lugar</p>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-6 text-center">
+        <div class="text-4xl mb-3">⚡</div>
+        <h3 class="font-bold text-gray-900 mb-2">Responda Rápido</h3>
+        <p class="text-gray-600 text-sm">Gerencie todas as suas conversas facilmente</p>
+      </div>
+
+      <div class="bg-white rounded-lg shadow p-6 text-center">
+        <div class="text-4xl mb-3">🔔</div>
+        <h3 class="font-bold text-gray-900 mb-2">Notificações</h3>
+        <p class="text-gray-600 text-sm">Receba notificações de novas mensagens</p>
+      </div>
+
+    </div>
+  </div>
+</div>

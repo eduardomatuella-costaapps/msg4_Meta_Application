@@ -1,0 +1,34 @@
+/* Animações customizadas */
+@keyframes fadeIn {
+  from {
+    opacity: 0;
+    transform: translateY(10px);
+  }
+  to {
+    opacity: 1;
+    transform: translateY(0);
+  }
+}
+
+:host {
+  display: block;
+}
+
+.animate-in {
+  &.fade-in {
+    animation: fadeIn 0.5s ease-in-out;
+  }
+}
+
+/* Responsividade */
+@media (max-width: 640px) {
+  :host ::ng-deep {
+    .text-4xl {
+      @apply text-2xl;
+    }
+    
+    .text-3xl {
+      @apply text-xl;
+    }
+  }
+}
