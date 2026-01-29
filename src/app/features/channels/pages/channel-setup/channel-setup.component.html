@@ -11,7 +11,7 @@
     <div *ngIf="successMessage" class="alert-container success-alert">
       <div class="alert-icon">✅</div>
       <div class="alert-content">
-        <h3>Sucesso!</h3>
+        <h3>Success!</h3>
         <p>{{ successMessage }}</p>
       </div>
     </div>
@@ -42,33 +42,33 @@
 
       <!-- Main Title Section -->
       <div class="title-section">
-        <h1 class="main-title">Conecte Sua Conta Meta</h1>
-        <p class="main-subtitle">Sincronize suas mensagens do Instagram e comece a gerenciar conversas em um único lugar</p>
+        <h1 class="main-title">Connect Your Meta Account</h1>
+        <p class="main-subtitle">Sync your Instagram messages and start managing conversations in one place</p>
       </div>
 
       <!-- Requirements Section -->
       <div class="requirements-section">
-        <h3 class="section-title">Requisitos Necessários</h3>
+        <h3 class="section-title">Required Permissions</h3>
         <ul class="requirements-list">
           <li class="requirement-item">
             <span class="requirement-icon">📄</span>
             <div>
-              <strong>Página do Facebook</strong>
-              <p>Você deve ser administrador da página</p>
+              <strong>Facebook Page</strong>
+              <p>You must be an administrator of the page</p>
             </div>
           </li>
           <li class="requirement-item">
             <span class="requirement-icon">📸</span>
             <div>
-              <strong>Conta Instagram Business</strong>
-              <p>Vinculada à sua página do Facebook</p>
+              <strong>Instagram Business Account</strong>
+              <p>Linked to your Facebook page</p>
             </div>
           </li>
           <li class="requirement-item">
             <span class="requirement-icon">🔐</span>
             <div>
-              <strong>Permissões Administrativas</strong>
-              <p>Acesso para gerenciar mensagens diretas</p>
+              <strong>Administrative Permissions</strong>
+              <p>Access to manage direct messages</p>
             </div>
           </li>
         </ul>
@@ -84,9 +84,9 @@
         <svg *ngIf="!isConnecting" class="button-icon facebook" fill="currentColor" viewBox="0 0 24 24">
           <path d="M24 12.073c0-6.627-5.373-12-12-12s-12 5.373-12 12c0 5.99 4.388 10.954 10.125 11.854v-8.385H7.078v-3.47h3.047V9.43c0-3.007 1.792-4.669 4.533-4.669 1.312 0 2.686.235 2.686.235v2.953H15.83c-1.491 0-1.956.925-1.956 1.874v2.25h3.328l-.532 3.47h-2.796v8.385C19.612 23.027 24 18.062 24 12.073z"/>
         </svg>
-        <span *ngIf="!isConnecting" class="button-text">Conectar com Facebook</span>
+        <span *ngIf="!isConnecting" class="button-text">Connect with Facebook</span>
         <span *ngIf="isConnecting" class="button-text loading-text">
-          <span class="spinner"></span>Conectando...
+          <span class="spinner"></span>Connecting...
         </span>
       </button>
 
@@ -96,8 +96,8 @@
           <path d="M12 1L3 5v6c0 5.55 3.84 10.74 9 12 5.16-1.26 9-6.45 9-12V5l-9-4z"/>
         </svg>
         <div>
-          <strong>Protegido por OAuth 2.0</strong>
-          <p>Suas credenciais são gerenciadas com segurança pelo Facebook. Você será redirecionado para login seguro.</p>
+          <strong>Protected by OAuth 2.0</strong>
+          <p>Your credentials are securely managed by Facebook. You will be redirected to secure login.</p>
         </div>
       </div>
     </div>
@@ -106,26 +106,23 @@
     <div class="benefits-section">
       <div class="benefit-card">
         <div class="benefit-icon">💬</div>
-        <h4 class="benefit-title">Mensagens Centralizadas</h4>
-        <p class="benefit-desc">Acesse todas as DMs do Instagram em um único dashboard</p>
+        <h4 class="benefit-title">Centralized Messages</h4>
+        <p class="benefit-desc">Access all Instagram DMs in a single dashboard</p>
       </div>
 
       <div class="benefit-card">
         <div class="benefit-icon">⚡</div>
-        <h4 class="benefit-title">Responda Rápido</h4>
-        <p class="benefit-desc">Gerencie conversas com eficiência e aumente o engajamento</p>
+        <h4 class="benefit-title">Respond Quickly</h4>
+        <p class="benefit-desc">Manage conversations efficiently and increase engagement</p>
       </div>
 
       <div class="benefit-card">
         <div class="benefit-icon">🔔</div>
-        <h4 class="benefit-title">Notificações em Tempo Real</h4>
-        <p class="benefit-desc">Receba alertas de novas mensagens instantaneamente</p>
+        <h4 class="benefit-title">Real-Time Notifications</h4>
+        <p class="benefit-desc">Receive alerts for new messages instantly</p>
       </div>
     </div>
 
     <!-- Footer Info -->
     <div class="setup-footer">
-      <p class="footer-text">💡 Dica: Certifique-se de que sua conta Instagram Business está <strong>conectada</strong> à página do Facebook antes de prosseguir.</p>
-    </div>
-  </div>
-</div>
+      <p class="footer-text">💡 Tip: Make sure your Instagram Business account is <strong>connected</strong> to your Facebook page before proceeding.</p>

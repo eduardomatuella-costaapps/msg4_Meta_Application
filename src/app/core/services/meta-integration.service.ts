@@ -59,4 +59,24 @@ export class MetaIntegrationService {
     this.companyUUID = uuid;
     localStorage.setItem('cUUID', uuid);
   }
+
+  /**
+   * Saves automatic reply configuration for a Facebook page
+   * @param pageId Facebook Page ID
+   * @param pageType Type of page (e.g., 'facebook', 'instagram')
+   * @param message Welcome message for automation
+   * @returns Observable of the save response
+   */
+  saveAutoReply(pageId: string, pageType: string, message: string): Observable<any> {
+    const params = new URLSearchParams({ company_uuid: this.companyUUID });
+    const payload = {
+      PageID: pageId,
+      PageType: pageType,
+      WelcomeMessage: message
+    };
+    return this.http.post<any>(
+      `${this.backEndUrl}/save_auto_reply?${params.toString()}`,
+      payload
+    );
+  }
 }

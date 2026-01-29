@@ -15,6 +15,7 @@ export interface FacebookPage {
   picture?: string; // URL da foto da página (opcional)
   instagram_business_account?: InstagramAccount | null; // Se null, não serve pro nosso caso
   is_connected: boolean; // Flag visual: Já está salvo no nosso banco?
+  welcomeMessage?: string; // Welcome message for automation
 }
 
 export interface ChannelSetupResponse {

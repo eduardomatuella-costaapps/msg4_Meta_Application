@@ -1,9 +1,53 @@
 <div class="channels-container">
+  <!-- Success Modal -->
+  <div *ngIf="showSuccessModal" class="modal-overlay">
+    <div class="modal-content success-modal" [@slideUp]="showSuccessModal ? 'open' : 'closed'">
+      <div class="modal-header">
+        <div class="modal-icon success-icon">
+          <svg fill="currentColor" viewBox="0 0 24 24">
+            <path d="M9 16.17L4.83 12l-1.42 1.41L9 19 21 7l-1.41-1.41L9 16.17z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="modal-body">
+        <h3 class="modal-title">{{ successMessage }}</h3>
+        <p class="modal-description">Your automation settings have been saved successfully.</p>
+      </div>
+      <div class="modal-footer">
+        <button (click)="closeSuccessModal()" class="modal-button close-button">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
+  <!-- Error Modal -->
+  <div *ngIf="showErrorModal" class="modal-overlay">
+    <div class="modal-content error-modal" [@slideUp]="showErrorModal ? 'open' : 'closed'">
+      <div class="modal-header">
+        <div class="modal-icon error-icon">
+          <svg fill="currentColor" viewBox="0 0 24 24">
+            <path d="M19 6.41L17.59 5 12 10.59 6.41 5 5 6.41 10.59 12 5 17.59 6.41 19 12 13.41 17.59 19 19 17.59 13.41 12 19 6.41z"/>
+          </svg>
+        </div>
+      </div>
+      <div class="modal-body">
+        <h3 class="modal-title">Error</h3>
+        <p class="modal-description">{{ errorMessage }}</p>
+      </div>
+      <div class="modal-footer">
+        <button (click)="closeErrorModal()" class="modal-button close-button">
+          Close
+        </button>
+      </div>
+    </div>
+  </div>
+
   <!-- Header Section -->
   <div class="channels-header">
     <div class="header-content">
-      <h1 class="header-title">Meus Canais</h1>
-      <p class="header-subtitle">Gerencie suas conexões com Instagram e outras plataformas</p>
+      <h1 class="header-title">My Channels</h1>
+      <p class="header-subtitle">Manage your connections with Instagram and other platforms</p>
     </div>
     <div class="header-icon">📱</div>
   </div>
@@ -11,7 +55,7 @@
   <!-- Loading State -->
   <div *ngIf="isLoading" class="loading-container">
     <div class="spinner"></div>
-    <p class="loading-text">Carregando seus canais...</p>
+    <p class="loading-text">Loading your channels...</p>
   </div>
 
   <!-- Connected Channels Grid -->
@@ -30,19 +74,63 @@
         </div>
         <div class="status-badge active">
           <span class="status-dot"></span>
-          <span class="status-text">Conectado</span>
+          <span class="status-text">Connected</span>
         </div>
       </div>
 
       <!-- Card Body -->
       <div class="card-body">
         <div class="info-row">
-          <span class="info-label">ID da Conta:</span>
+          <span class="info-label">Account ID:</span>
           <span class="info-value">{{ channel.instagramAccountId }}</span>
         </div>
         <div class="info-row">
-          <span class="info-label">Conectado em:</span>
-          <span class="info-value">{{ channel.connectedAt | date:'dd/MM/yyyy HH:mm' }}</span>
+          <span class="info-label">Connected on:</span>
+          <span class="info-value">{{ channel.connectedAt | date:'MM/dd/yyyy HH:mm' }}</span>
+        </div>
+
+        <!-- Automation Configuration Section -->
+        <div class="automation-section">
+          <div class="automation-header">
+            <div class="automation-header-icon">⚙️</div>
+            <h4 class="automation-title">Automation Configuration</h4>
+          </div>
+          
+          <div class="automation-divider"></div>
+          
+          <div class="automation-content">
+            <div class="automation-label">
+              <span class="label-text">Welcome Message</span>
+              <span class="label-hint">Automatically sent to new followers</span>
+            </div>
+            
+            <textarea 
+              [(ngModel)]="channel.welcomeMessage"
+              placeholder="Enter your welcome message here... (e.g., 'Hey! Thanks for connecting! How can I help you today?')"
+              class="welcome-message-textarea"
+              maxlength="500"
+            ></textarea>
+            
+            <div class="automation-footer">
+              <span class="char-count">{{ (channel.welcomeMessage?.length || 0) }}/500</span>
+              <button 
+                (click)="saveWelcomeMessage(channel)"
+                [disabled]="isSavingMessage[channel.id] || !channel.welcomeMessage?.trim()"
+                class="save-message-button"
+              >
+                <svg *ngIf="!isSavingMessage[channel.id]" class="button-icon" fill="currentColor" viewBox="0 0 24 24">
+                  <path d="M17 3H5c-1.11 0-2 .9-2 2v14c0 1.1.89 2 2 2h14c1.1 0 2-.9 2-2V7l-4-4zm-5 16c-1.66 0-3-1.34-3-3s1.34-3 3-3 3 1.34 3 3-1.34 3-3 3zm3-10H5V5h10v4z"/>
+                </svg>
+                <span *ngIf="!isSavingMessage[channel.id]">Save Message</span>
+                <span *ngIf="isSavingMessage[channel.id]">
+                  <svg class="spinner-icon" fill="currentColor" viewBox="0 0 24 24">
+                    <path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm0 18c-4.42 0-8-3.58-8-8s3.58-8 8-8 8 3.58 8 8-3.58 8-8 8z"/>
+                  </svg>
+                  Saving...
+                </span>
+              </button>
+            </div>
+          </div>
         </div>
       </div>
 
@@ -61,8 +149,8 @@
   <!-- Empty State -->
   <div *ngIf="!isLoading && connectedChannels.length === 0" class="empty-state">
     <div class="empty-icon">📭</div>
-    <h2 class="empty-title">Nenhum canal conectado</h2>
-    <p class="empty-description">Você ainda não conectou nenhum canal. Vá para a página de configuração para conectar sua conta Meta.</p>
-    <a routerLink="/setup" class="empty-cta-button">Conectar Canal</a>
+    <h2 class="empty-title">No channels connected</h2>
+    <p class="empty-description">You haven't connected any channels yet. Go to the setup page to connect your Meta account.</p>
+    <a routerLink="/setup" class="empty-cta-button">Connect Channel</a>
   </div>
 </div>
